@@ -30,12 +30,18 @@ int main(int argc, const char **argv) {
   drawCtx.x = 0;
   drawCtx.font_siz = 14.0;  // TODO: Fix shadows
 
-  CFStringRef promptStr = CFStringCreateWithCString(NULL, promptCStr, kCFStringEncodingUTF8);
   CFStringRef fontStr = CFStringCreateWithCString(NULL, "Consolas", kCFStringEncodingUTF8);
+
+  if (font) {
+    fontStr = CFStringCreateWithCString(NULL, font, kCFStringEncodingUTF8);
+  }
+
+  CFStringRef promptStr = CFStringCreateWithCString(NULL, promptCStr, kCFStringEncodingUTF8);
   CTFontDescriptorRef fontDesc = CTFontDescriptorCreateWithNameAndSize(fontStr, drawCtx.font_siz);
-  CTFontRef font = CTFontCreateWithFontDescriptor(fontDesc, 0.0, NULL);
+  CTFontRef fontRef = CTFontCreateWithFontDescriptor(fontDesc, 0.0, NULL);
   CFRelease(fontStr);
-  drawCtx.font = font;
+  drawCtx.font = fontRef;
+
 
   initDraw(&drawCtx);
 
