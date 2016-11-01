@@ -37,11 +37,12 @@ bool drawText(CGContextRef ctx, DrawCtx *drawCtx, CFStringRef itemName, bool sel
   CTLineRef line = CTLineCreateWithAttributedString(attrItemName);
   CGFloat w = CTLineGetTypographicBounds(line, NULL, NULL, NULL);
   if ((drawCtx->x + w + 2 * space.w) > drawCtx->w) {
+    // off the right edge of the screen, stop drawing words
     return false;
   }
   CGContextSetFillColorWithColor(ctx, bg);
   CGContextFillRect(ctx, CGRectMake(drawCtx->x, 0, w + 2 * space.w, drawCtx->h));
-  CGFloat y = (drawCtx->h - drawCtx->font_siz) / 2;
+  CGFloat y = (drawCtx->h - drawCtx->font_siz);
   CGContextSetTextPosition(ctx, drawCtx->x + space.w, y);
   CTLineDraw(line, ctx);
   drawCtx->x += w + 2 * space.w;
@@ -60,7 +61,7 @@ void drawInput(CGContextRef ctx, DrawCtx *drawCtx, CFStringRef input) {
   CGFloat w = CTLineGetTypographicBounds(line, NULL, NULL, NULL);
   CGContextSetFillColorWithColor(ctx, bg);
   CGContextFillRect(ctx, CGRectMake(drawCtx->x, 0, w + 2 * space.w, drawCtx->h));
-  CGFloat y = (drawCtx->h - drawCtx->font_siz) / 2;
+  CGFloat y = (drawCtx->h - drawCtx->font_siz);
   CGContextSetTextPosition(ctx, drawCtx->x + space.w, y);
   CTLineDraw(line, ctx);
   CFRelease(line);
