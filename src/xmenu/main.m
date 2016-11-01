@@ -11,7 +11,7 @@ char *toReturn = "";
 
 bool topbar = true;
 bool caseSensitive;
-float window_height = 14;
+float window_height = -1;
 const char *promptCStr = "$";
 const char *font;
 const char *normbgcolor = "#1F1F21";
@@ -44,6 +44,15 @@ int main(int argc, const char **argv) {
 
 
   initDraw(&drawCtx);
+
+  if(window_height == -1) { // not set by user
+    // work out decent height based on font
+    NSSize size = [@"Sygq" sizeWithAttributes:
+                      [NSDictionary dictionaryWithObject: [NSFont fontWithName:@"Hack" size:14.0f]
+                                                  forKey: NSFontAttributeName]];
+
+    window_height = size.height - 1;
+  }
 
   ItemList itemList = ReadStdin();
   if (!itemList.len) {
