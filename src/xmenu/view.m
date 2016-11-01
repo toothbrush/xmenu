@@ -90,6 +90,14 @@ extern char *toReturn;
           curTextChanged = YES;
         }
         break;
+      case 8:  // Ctrl+C
+        toReturn = NULL;
+        [NSApp stop:self];
+        break;
+      case 5:  // Ctrl+G
+        toReturn = NULL;
+        [NSApp stop:self];
+        break;
     }
     goto post_keycode;
   }
