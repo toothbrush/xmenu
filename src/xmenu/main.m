@@ -72,7 +72,7 @@ int main(int argc, const char **argv) {
 
   NSRect windowRect = NSMakeRect(screenFrame.origin.x, y, screenFrame.size.width, window_height);
   BorderlessWindow *window = [[[BorderlessWindow alloc] initWithContentRect:windowRect
-                                                                  styleMask:NSBorderlessWindowMask
+                                                                  styleMask:NSWindowStyleMaskBorderless
                                                                     backing:NSBackingStoreBuffered
                                                                       defer:NO] autorelease];
   [window makeKeyAndOrderFront:nil];

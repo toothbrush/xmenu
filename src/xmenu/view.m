@@ -49,9 +49,9 @@ extern char *toReturn;
   BOOL success;
   BOOL curTextChanged = NO;
   char *s;
-  NSEventModifierFlags flags = [event modifierFlags] & NSDeviceIndependentModifierFlagsMask;
+  NSEventModifierFlags flags = [event modifierFlags] & NSEventModifierFlagDeviceIndependentFlagsMask;
 
-  if (flags == NSControlKeyMask) {
+  if (flags == NSEventModifierFlagControl) {
     switch ([event keyCode]) {
       case 13:  // Ctrl+W
         if (CFStringGetLength(curText_) != 0) {
@@ -130,7 +130,7 @@ extern char *toReturn;
       self.needsDisplay = YES;
       break;
     case 36:  // return/enter
-      if (selected_ == NULL || flags == NSShiftKeyMask) {
+      if (selected_ == NULL || flags == NSEventModifierFlagShift) {
         curString = (NSString *)curText_;
       } else {
         curString = (NSString *)selected_->text;
