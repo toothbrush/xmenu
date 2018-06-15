@@ -30,7 +30,7 @@ int main(int argc, const char **argv) {
   drawCtx.x = 0;
   drawCtx.font_siz = 14.0;  // TODO: Fix shadows
 
-  CFStringRef fontStr = CFStringCreateWithCString(NULL, "Consolas", kCFStringEncodingUTF8);
+  CFStringRef fontStr = CFStringCreateWithCString(NULL, "Hack", kCFStringEncodingUTF8);
 
   if (font) {
     fontStr = CFStringCreateWithCString(NULL, font, kCFStringEncodingUTF8);
@@ -46,12 +46,19 @@ int main(int argc, const char **argv) {
   initDraw(&drawCtx);
 
   if(window_height == -1) { // not set by user
-    // work out decent height based on font
-    NSSize size = [@"Sygq" sizeWithAttributes:
-                      [NSDictionary dictionaryWithObject: [NSFont fontWithName:@"Hack" size:14.0f]
-                                                  forKey: NSFontAttributeName]];
-
-    window_height = size.height - 1;
+    @try {
+      // work out decent height based on font
+      NSSize size = [@"Sygq" sizeWithAttributes:
+                        [NSDictionary dictionaryWithObject: [NSFont fontWithName:@"Hack" size:14.0f]
+                                                    forKey: NSFontAttributeName]];
+      window_height = size.height - 1;
+    }
+    @catch (NSException *exception) {
+      NSLog(@"%@", exception.reason);
+      NSLog(@"If you get this, you're probably missing the Hack font.");
+      // a random default
+      window_height = 40;
+    }
   }
 
   ItemList itemList = ReadStdin();
