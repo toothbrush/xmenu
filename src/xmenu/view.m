@@ -70,6 +70,19 @@ extern char *toReturn;
         CFStringReplaceAll(curText_, CFSTR(""));
         curTextChanged = YES;
         break;
+      case 35:  // left arrow
+        newSel = selected_ - 1;
+      case 45:  // right arrow
+        if (selected_ == NULL) {
+          break;
+        }
+        if (filtered_.item <= newSel && newSel < filtered_.item + filtered_.len) {
+          selected_->sel = FALSE;
+          selected_ = newSel;
+          selected_->sel = TRUE;
+        }
+        self.needsDisplay = YES;
+        break;
       case 0:  // Ctrl+A
         if (filtered_.len != 0) {
           selected_ = ItemListSetSelected(&filtered_, selected_, filtered_.item);
