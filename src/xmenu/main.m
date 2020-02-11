@@ -51,7 +51,7 @@ int main(int argc, const char **argv) {
       NSSize size = [@"Sygq" sizeWithAttributes:
                         [NSDictionary dictionaryWithObject: [NSFont fontWithName:@"Hack" size:14.0f]
                                                     forKey: NSFontAttributeName]];
-      window_height = size.height - 1;
+      window_height = size.height + 4;
     }
     @catch (NSException *exception) {
       NSLog(@"%@", exception.reason);
