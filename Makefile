@@ -15,6 +15,8 @@ PREFIX = /usr/local
 
 .PHONY: all clean install fmt
 
+all: $(addprefix bin/,$(BINS))
+
 install: all bindir $(addprefix $(PREFIX)/bin/,$(BINS))
 
 bindir:
@@ -23,8 +25,6 @@ bindir:
 $(PREFIX)/bin/%: bin/%
 	@echo " INSTALL" $@
 	@install -m 755 $< $@
-
-all: $(addprefix bin/,$(BINS))
 
 bin/xmenu: $(OBJS)
 	@echo " CC     " bin/xmenu
